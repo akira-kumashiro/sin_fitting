@@ -79,9 +79,9 @@ int main()
 		{
 			for (int k = 0; k < eliteData[i][j].x.size(); k++)
 			{
-				printf("%8.7f", eliteData[i][j].x[k]);
+				printf("%8.7f,", eliteData[i][j].x[k]);
 			}
-			printf("%8.7f", eliteData[i][j].functionValue);
+			printf("%8.7f,", eliteData[i][j].functionValue);
 		}
 		puts("");
 	}
