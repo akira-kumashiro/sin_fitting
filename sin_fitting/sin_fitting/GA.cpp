@@ -248,7 +248,7 @@ bool GA::displayValues()
 double GA::getFunctionErrorSum(std::vector<double> param)
 {
 	double result = 0.0;
-	double omega = 2 * M_PI * param[2];
+	double omega = 2 * M_PI * freq;
 	for (int i = 0; i < rawData.size(); i++)
 	{
 		result += std::pow((param[0] * std::sin(omega * i * timeDiv + param[1] * M_PI / 180)) - rawData[i], 2.0);

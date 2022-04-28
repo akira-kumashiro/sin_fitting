@@ -21,8 +21,10 @@ private:
 	int minNum = 0, maxNum = 0;
 	double alpha = 0.5;
 	std::vector<double> varMax, varMin;//変数の最小値・最大値
-	double timeDiv = 1.0e-4;
 public:
+	
+	double timeDiv = 1.0e-4;
+	double freq = 50;
 	double resultSumValue;//評価関数の合計
 	std::vector<double> rawData;//csvからの読み込み値
 	class Data//データ格納用クラス
@@ -33,20 +35,21 @@ public:
 		std::vector<double> x;//座標
 		double functionValue;//与えられた関数の値
 		double result;
-		int id;
+		std::string id;
+		std::string name;
 
 		Data(int _var_num)//コンストラクタ
 		{
 			var_num = _var_num;
 			functionValue = 0;
 			result = 0;
-			id = 0;
+			id = "";
 
 			x.resize(var_num);//isIncludedの配列の長さの設定
 		}
 		void showData()
 		{
-			printf("apm,ph,freq,functionValue\n");
+			printf("apm,ph,functionValue\n");
 			for (int i = 0; i < x.size(); i++)
 			{
 				printf("%8.7f,", x[i]);
