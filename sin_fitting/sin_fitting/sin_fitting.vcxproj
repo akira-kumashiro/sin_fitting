@@ -142,7 +142,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FileInput.cpp" />
-    <ClCompile Include="FileInputAll.cpp" />
     <ClCompile Include="GA.cpp" />
     <ClCompile Include="GetFolderFiles.cpp" />
     <ClCompile Include="main.cpp" />
@@ -150,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileInput.h" />
-    <ClInclude Include="FileInputAll.h" />
     <ClInclude Include="GA.h" />
     <ClInclude Include="GetFolderFiles.h" />
     <ClInclude Include="stdafx.h" />
