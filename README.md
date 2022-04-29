@@ -30,4 +30,5 @@ csvで保存すると便利です。
 - [Visual C++で円周率のM_PIを使う](https://hayakute.kantan-sakusaku.com/?p=2235)
 - [T - 2.03.多次元配列 ](https://atcoder.jp/contests/APG4b/tasks/APG4b_t)
 - [C++11で数字→文字列はstd::to_string()、文字列→数字はstd::stoi()とかstd::stod()とか](https://minus9d.hatenablog.com/entry/2014/06/05/233727)
+- [【C++】std::stringで文字列が含まれるかどうかの判定【contains】](https://marycore.jp/prog/cpp/std-string-contains/)
 - [akira-kumashiro/report2_git](https://github.com/akira-kumashiro/report2_git)
