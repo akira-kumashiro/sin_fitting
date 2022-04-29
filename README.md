@@ -12,7 +12,5 @@ csvで保存すると便利です。
 ## その他
 最適化範囲はハードコーディングしているので都度変えてコンパイルする
 (デフォは振幅：0.7～0.02、位相：-100～-190()deg、周波数：51～49(Hz))
-##評価関数
-```math
-\sum_{n=1}^{24}(Amp \times sin ( \omega * t + \theta \times \frac{\pi}{180}) - RawData_i)	
-```
+## 評価関数
+![\sum_{n=1}^{24}(Amp \times \rm{sin} ( \omega t + \theta \times \frac{\pi}{180}) - RawData_i)](https://latex.codecogs.com/gif.latex?\sum_{n=1}^{24}(Amp%20\times%20\rm{sin}%20(%20\omega%20t%20+%20\theta%20\times%20\frac{\pi}{180})%20-%20RawData_i))
