@@ -11,7 +11,7 @@
 #define MAX_GENERATION 1000
 #define MAX_GENOM_LIST 100
 #define VAR_NUM 2	//変数の数
-#define FREQ 1000
+#define FREQ 50
 
 //#define DEBUG
 #define ENABLE_MUTATION
@@ -35,7 +35,7 @@ int main()
 
 	std::vector<std::vector<GA::Data>> eliteData(folderFilesList.fileList.size(), std::vector<GA::Data>(fileIOTemp.fileDataNom.size(), GA::Data(VAR_NUM)));
 
-	for (int j = 0; j < folderFilesList.fileList.size(); j++)
+	for (int fileNumber = 0; fileNumber < folderFilesList.fileList.size(); fileNumber++)
 	{
 		/*std::ostringstream fileNumber;
 		fileNumber << folderTarget << "\\" << std::setfill('0') << std::setw(2) << j + 1 << ".CSV";
@@ -43,17 +43,17 @@ int main()
 		std::cout << fileFullPath << std::endl;*/
 
 		//FileInput fileio(fileFullPath);
-		FileInput fileio(folderFilesList.fileList[j].string());
-		std::cout << folderFilesList.fileList[j] << std::endl;
+		FileInput fileio(folderFilesList.fileList[fileNumber].string());
+		std::cout << folderFilesList.fileList[fileNumber] << std::endl;
 
-		for (int i = 0; i < fileio.fileDataNom.size(); i++)
+		for (int dataNumber = 0; dataNumber < fileio.fileDataNom.size(); dataNumber++)
 		{
-			GA ga(MAX_GENOM_LIST, VAR_NUM, vMax, vMin, fileio.dataDivider(i));//遺伝的アルゴリズム諸関数をまとめたクラスの宣言
+			GA ga(MAX_GENOM_LIST, VAR_NUM, vMax, vMin, fileio.dataDivider(dataNumber));//遺伝的アルゴリズム諸関数をまとめたクラスの宣言
 			ga.timeDiv = fileio.resolution;
 			ga.freq = FREQ;
 			//ga.init();//変数の初期化
 
-			for (int i = 0; i <= MAX_GENERATION; i++)//メインのループ
+			for (int epoch = 0; epoch <= MAX_GENERATION; epoch++)//メインのループ
 			{
 				bool change = ga.selection();//選択
 
@@ -63,9 +63,9 @@ int main()
 				//ga.blxAlphaMutation();
 #endif
 #ifdef DEBUG
-				if (i % (MAX_GENERATION / 10) == 0 || change)
+				if (epoch % (MAX_GENERATION / 10) == 0)// || change
 				{
-					//std::cout << "i=" << std::to_string(i) << std::endl;
+					std::cout << "itr=" << std::to_string(epoch)<<"	";
 					ga.calc(true);//評価関数の計算
 				}
 				else
@@ -73,9 +73,9 @@ int main()
 #endif			
 			}
 			ga.eliteData.showData();
-			eliteData[j][i] = ga.eliteData;
-			eliteData[j][i].id = folderFilesList.fileList[j].filename().string() + "," + fileio.timeStamp;
-			eliteData[j][i].name = fileio.traceName[i];
+			eliteData[fileNumber][dataNumber] = ga.eliteData;
+			eliteData[fileNumber][dataNumber].id = folderFilesList.fileList[fileNumber].filename().string() + "," + fileio.timeStamp;
+			eliteData[fileNumber][dataNumber].name = fileio.traceName[dataNumber];
 #ifdef DEBUG
 			while (1)
 				if (_kbhit() && _getch() == 27)
@@ -86,24 +86,24 @@ int main()
 	}
 	std::vector<std::string> identifier = { "amp","ph","functuonValue" };
 	std::cout << "fileName,timeStamp,";
-	for (int i = 0; i < eliteData[0].size(); i++)
+	for (int dataNumber = 0; dataNumber < eliteData[0].size(); dataNumber++)
 	{
-		for (int j = 0; j < identifier.size(); j++)
+		for (int optParam = 0; optParam < identifier.size(); optParam++)
 		{
-			std::cout << eliteData[0][i].name + identifier[j] << ",";
+			std::cout << eliteData[0][dataNumber].name + identifier[optParam] << ",";
 		}
 	}
 	std::cout << std::endl;
-	for (int i = 0; i < eliteData.size(); i++)
+	for (int fileNumber = 0; fileNumber < eliteData.size(); fileNumber++)
 	{
-		std::cout << eliteData[i][0].id << ",";
-		for (int j = 0; j < eliteData[i].size(); j++)
+		std::cout << eliteData[fileNumber][0].id << ",";
+		for (int dataNumber = 0; dataNumber < eliteData[fileNumber].size(); dataNumber++)
 		{
-			for (int k = 0; k < eliteData[i][j].x.size(); k++)
+			for (int optParam = 0; optParam < eliteData[fileNumber][dataNumber].x.size(); optParam++)
 			{
-				printf("%8.7f,", eliteData[i][j].x[k]);
+				printf("%8.7f,", eliteData[fileNumber][dataNumber].x[optParam]);
 			}
-			printf("%8.7f,", eliteData[i][j].functionValue);
+			printf("%8.7f,", eliteData[fileNumber][dataNumber].functionValue);
 		}
 		puts("");
 	}

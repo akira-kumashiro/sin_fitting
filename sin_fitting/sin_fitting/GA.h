@@ -23,8 +23,8 @@ private:
 	std::vector<double> varMax, varMin;//変数の最小値・最大値
 public:
 	
-	double timeDiv = 1.0e-4;
-	double freq = 50;
+	double timeDiv;// = 1.0e-4;
+	double freq;// = 50;
 	double resultSumValue;//評価関数の合計
 	std::vector<double> rawData;//csvからの読み込み値
 	class Data//データ格納用クラス
@@ -55,6 +55,11 @@ public:
 				printf("%8.7f,", x[i]);
 			}
 			printf("%8.7f\n", functionValue);
+		}
+
+		~Data()
+		{
+			//std::cout << "deleted" << std::endl;
 		}
 	};
 

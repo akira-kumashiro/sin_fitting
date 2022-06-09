@@ -84,22 +84,23 @@ std::vector<double> FileInput::dataDivider(int line)
 std::vector<std::vector<double>> FileInput::getNormValue(std::vector<std::vector<double>>)
 {
 	std::vector<std::vector<double>> result(fileData[0].size(), std::vector<double>(fileData.size()));
-	double average = 0.0;
+
 	for (int j = 0; j < fileData[0].size(); j++)
 	{
+		double average = 0.0;
+
 		for (int i = 0; i < fileData.size(); i++)
 		{
-			double value = fileData[i][j];
-			result[j][i] = value;
-			average += value / fileData.size();
+			result[j][i] = fileData[i][j];
+			//average += value / fileData.size();
 		}
+		average = std::accumulate(result[j].begin(), result[j].end(), 0.0) / result[j].size();
 		//printf("%f\n", average);
 		for (int i = 0; i < result[j].size(); i++)
 		{
 			result[j][i] -= average;
 			//printf("%f\n", result[j][i]);
 		}
-
 	}
 
 	return result;

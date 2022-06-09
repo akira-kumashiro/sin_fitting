@@ -3,7 +3,8 @@
 
 GA::GA(int _max_genom_list, int _var_num, std::vector<double> _varMax, std::vector<double> _varMin, std::vector<double> _rawData) :
 	data(std::vector<Data>(_max_genom_list, _var_num)),//data‚Ì‰Šú‰»
-	eliteData(_var_num)
+	eliteData(_var_num),
+	rawData(_rawData.size(),0.0)
 {
 	//‚à‚ç‚Á‚½•Ï”‚ğƒNƒ‰ƒX“à•Ï”‚ÉŠi”[
 	max_genom_list = _max_genom_list;
@@ -106,11 +107,12 @@ bool GA::mutation()
 {
 	for (int i = 0; i < max_genom_list; i++)
 	{
-		if (random(0.0, 1.0) <= individualMutationRate)//ŒÂ‘Ì“Ë‘R•ÏˆÙ—¦‚ÌŒvZ
+		for (int j = 0; j < var_num; j++)
 		{
-			for (int j = 0; j < var_num; j++)
+			if (random(0.0, 1.0) <= individualMutationRate)//ŒÂ‘Ì“Ë‘R•ÏˆÙ—¦‚ÌŒvZ
 			{
-				data[i].x[j] += random(-0.1, 0.1);
+				double range = varMax[j] - varMin[j];
+				data[i].x[j] += random(-0.005 * range, 0.005 * range);
 				//blxAlphaMutation();
 			}
 		}
@@ -248,7 +250,13 @@ bool GA::displayValues()
 double GA::getFunctionErrorSum(std::vector<double> param)
 {
 	double result = 0.0;
-	double omega = 2 * M_PI * freq;
+	double omega;
+
+	if (var_num == 3)
+		omega = 2 * M_PI * param[2];
+	else
+		omega = 2 * M_PI * freq;
+
 	for (int i = 0; i < rawData.size(); i++)
 	{
 		result += std::pow((param[0] * std::sin(omega * i * timeDiv + param[1] * M_PI / 180)) - rawData[i], 2.0);
