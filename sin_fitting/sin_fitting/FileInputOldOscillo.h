@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -11,7 +12,7 @@ class FileInput
 private:
 
 public:
-	FileInput(std::string _filename,int _oscilloscopeType);
+	FileInput(std::string _filename);
 
 	std::vector<std::vector<double>> fileData;//CSVs”(CSV—ñ”)
 	std::vector<std::vector<double>> fileDataNom;//CSV—ñ”(CSVs”)
@@ -22,7 +23,7 @@ public:
 	std::string timeStamp;
 	double resolution;
 	std::vector<std::string> traceName;
-	int oscilloscopeType;
 	~FileInput();
 };
+
 

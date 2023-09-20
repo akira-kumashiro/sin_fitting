@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GA.h"
-#include"FileInput.h"
 #include"GetFolderFiles.h"
+#include"FileInput.h"
 
 #include <iostream>
 #include <string>
@@ -11,15 +11,22 @@
 #define MAX_GENERATION 1000
 #define MAX_GENOM_LIST 100
 #define VAR_NUM 2	//ïœêîÇÃêî
-#define FREQ 50
+#define FREQ 1000
 
 //#define DEBUG
 #define ENABLE_MUTATION
+//#define OLD_OSCILLOSCOPE
+
+#ifdef OLD_OSCILLOSCOPE
+const int oscilloscopeType = 1;
+#else
+const int oscilloscopeType = 0;
+#endif
 
 int main()
 {
-	double varMax[] = { 10.0,180.0 ,51 };//Amp, phase(deg), freq(Hz)
-	double varMin[] = { 0,-180.0 ,49 };//Amp, phase(deg), freq(Hz)
+	double varMax[] = { 20.0,180.0 ,2000 };//Amp, phase(deg), freq(Hz)
+	double varMin[] = { 0,-180.0 ,0 };//Amp, phase(deg), freq(Hz)
 
 
 	//îzóÒÇstd::vectorÇ÷ïœä∑
@@ -31,7 +38,7 @@ int main()
 	//std::cout << folderTarget << std::endl;
 	GetFolderFiles folderFilesList(folderTarget);
 
-	FileInput fileIOTemp(folderFilesList.fileList[0].string());
+	FileInput fileIOTemp(folderFilesList.fileList[0].string(),oscilloscopeType);
 
 	std::vector<std::vector<GA::Data>> eliteData(folderFilesList.fileList.size(), std::vector<GA::Data>(fileIOTemp.fileDataNom.size(), GA::Data(VAR_NUM)));
 
@@ -43,7 +50,7 @@ int main()
 		std::cout << fileFullPath << std::endl;*/
 
 		//FileInput fileio(fileFullPath);
-		FileInput fileio(folderFilesList.fileList[fileNumber].string());
+		FileInput fileio(folderFilesList.fileList[fileNumber].string(),oscilloscopeType);
 		std::cout << folderFilesList.fileList[fileNumber] << std::endl;
 
 		for (int dataNumber = 0; dataNumber < fileio.fileDataNom.size(); dataNumber++)

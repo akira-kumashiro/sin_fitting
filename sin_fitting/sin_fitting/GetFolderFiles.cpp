@@ -12,8 +12,9 @@ bool GetFolderFiles::getFileNames(std::string folderPath)
 	std::error_code err;
 	directory_iterator iter(folderPath, err), end;
 
-	for (; iter != end && !err; iter.increment(err)) {
-		const directory_entry entry = *iter;
+	for (const directory_entry& entry : recursive_directory_iterator(folderPath, err))
+	{
+		//const directory_entry entry = *iter;
 		std::filesystem::path filePath = entry.path().string();
 		if (filePath.extension() == ".csv" || filePath.extension() == ".CSV")
 			fileList.push_back(entry.path().string());
@@ -21,6 +22,16 @@ bool GetFolderFiles::getFileNames(std::string folderPath)
 		std::cout << fileList.back() << std::endl;
 #endif // DEBUG
 	}
+
+	/*for (; iter != end && !err; iter.increment(err)) {
+		const directory_entry entry = *iter;
+		std::filesystem::path filePath = entry.path().string();
+		if (filePath.extension() == ".csv" || filePath.extension() == ".CSV")
+			fileList.push_back(entry.path().string());
+#ifdef DEBUG
+		std::cout << fileList.back() << std::endl;
+#endif // DEBUG
+	}*/
 
 	/* ƒGƒ‰[ˆ— */
 	if (err) {
